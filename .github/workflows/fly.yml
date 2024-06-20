@@ -1,0 +1,26 @@
+name: fly deploy
+
+on:
+  push:
+    branches:
+      - main # change this to match the branch you want to auto deploy from.
+      
+# We don't want multiple deployments running at the same time. 
+# This tells GitHub to cancel the workflow if another one has started.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+	    # Get project files
+      - uses: actions/checkout@v4
+      # Setup `flyctl
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      # Use `flyctl` to deploy
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
