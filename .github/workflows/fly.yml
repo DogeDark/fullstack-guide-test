@@ -16,11 +16,11 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-	      # Get project files
+	    # Get project files
       - uses: actions/checkout@v4
-        # Setup `flyctl
+      # Setup `flyctl
       - uses: superfly/flyctl-actions/setup-flyctl@master
-        # Use `flyctl` to deploy
+      # Use `flyctl` to deploy
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
