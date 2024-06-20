@@ -16,7 +16,7 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-	    # Get project files
+      # Get project files
       - uses: actions/checkout@v4
       # Setup `flyctl
       - uses: superfly/flyctl-actions/setup-flyctl@master
